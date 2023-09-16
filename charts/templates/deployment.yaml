@@ -19,10 +19,7 @@ spec:
       - name: {{ include "name" . }}-volume
         emptyDir: {}
       containers:
-        - securityContext:
-          runAsUser: 1000
-          runAsGroup: 101
-          fsGroup: 101
+
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
@@ -30,6 +27,10 @@ spec:
           volumeMounts:
           - name: {{ include "name" . }}-volume
             mountPath: /var/www/
+          - securityContext:
+            runAsUser: 100
+            runAsGroup: 101
+            fsGroup: 101
 
 
 
