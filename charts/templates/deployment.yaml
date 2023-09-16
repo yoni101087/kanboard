@@ -15,9 +15,7 @@ spec:
         release: {{ .Release.Name }}
     spec:
       securityContext:
-        fsGroup: 101
-        runAsGroup: 101
-        runAsUser: 100
+        runAsUser: 0
       volumes:
       - name: {{ include "name" . }}-volume
         persistentVolumeClaim:
@@ -30,7 +28,7 @@ spec:
           volumeMounts:
           - name: {{ include "name" . }}-volume
             mountPath: /var/www/
-          allowPrivilegeEscalation: true
+          allowPrivilegeEscalation: false
 
         
 
