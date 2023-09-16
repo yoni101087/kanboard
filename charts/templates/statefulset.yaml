@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "name" . }}
+spec:
+  serviceName: nginx
+  replicas: 1  # You can adjust the number of replicas as needed.
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"  # You can use a different Nginx image/tag if needed.
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: {{ include "name" . }}-volume
+          mountPath: /var/www/app
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ include "name" . }}-volume
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: local-path  # Set your desired storage class.
+      resources:
+        requests:
+          storage: 5Gi  # Adjust the storage size as needed.
+
