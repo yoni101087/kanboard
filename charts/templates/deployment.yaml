@@ -15,7 +15,9 @@ spec:
         release: {{ .Release.Name }}
     spec:
       securityContext:
-        runAsUser: 0
+        runAsUser: 1000
+        runAsGroup: 101
+        fsGroup: 101
       volumes:
       - name: {{ include "name" . }}-volume
         emptyDir: {}
