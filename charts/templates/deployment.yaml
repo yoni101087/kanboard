@@ -26,6 +26,7 @@ spec:
         fsGroup: 101
         runAsGroup: 101
         runAsUser: 100
+        allowPrivilegeEscalation: true
       volumes:
       - name: {{ include "name" . }}-volume
         persistentVolumeClaim:
