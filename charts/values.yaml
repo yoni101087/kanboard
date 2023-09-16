@@ -1,6 +1,6 @@
 replicaCount: 1
 image:
-  repository: yoni101087/rick_and_morty_app
+  repository: yoni101087/kanboard
   tag: latest
   pullPolicy: IfNotPresent
 
