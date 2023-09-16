@@ -15,14 +15,15 @@ spec:
         release: {{ .Release.Name }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ .Chart.Name }}  # First container
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: 80
           volumeMounts:
-        - name: {{ include "name" . }}-content
-          mountPath: /var/www/app
+            - name: {{ include "name" . }}-content
+              mountPath: /var/www/app
       volumes:
-      - name: {{ include "name" . }}-content
-        persistentVolumeClaim:
-          claimName: {{ include "name" . }}-pvc
+        - name: {{ include "name" . }}-content
+          persistentVolumeClaim:
+            claimName: {{ include "name" . }}-pvc
+
