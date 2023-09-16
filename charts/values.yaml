@@ -1,0 +1,15 @@
+replicaCount: 1
+image:
+  repository: yoni101087/rick_and_morty_app
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 9084
+
+
+ingress:
+  enabled: true
+  annotations: {}
+
