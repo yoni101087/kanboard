@@ -21,9 +21,9 @@ spec:
             - containerPort: 80
           volumeMounts:
           - name: {{ include "name" . }}-volume
-            mountPath: /var/www/app
+            mountPath: /var/www/
       securityContext:
-        fsGroup: 0
+        fsGroup: 101
         runAsGroup: 101
         runAsUser: 100
       volumes:
