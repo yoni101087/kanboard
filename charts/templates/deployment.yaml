@@ -25,7 +25,7 @@ spec:
       securityContext:
         fsGroup: 101
         runAsGroup: 101
-        runAsUser: 100
+        runAsUser: 0
       volumes:
       - name: {{ include "name" . }}-volume
         persistentVolumeClaim:
