@@ -18,6 +18,7 @@ spec:
         runAsUser: 0
       volumes:
       - name: {{ include "name" . }}-volume
+        emptyDir: {}
         persistentVolumeClaim:
           claimName: {{ include "name" . }}-pvc
       containers:
