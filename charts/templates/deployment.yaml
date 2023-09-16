@@ -19,13 +19,12 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: 80
-  storage:
-    volumeClaimTemplate:
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        storageClassName: local-path
-        resources:
-          requests:
-            storage: 5Gi
+          volumeMounts:
+          - name: {{ include "name" . }}-pvc
+            mountPath: /
+      volumes:
+      - name: {{ include "name" . }}-pvc
+        persistentVolumeClaim:
+          claimName: {{ include "name" . }}-pvc
+
 
