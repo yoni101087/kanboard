@@ -13,6 +13,7 @@ Citing [Wikipedia](https://en.wikipedia.org/wiki/Maintenance_mode):
 - New releases are published regularly depending on the contributions made by the community
 - Pull requests for new features and bug fixes are accepted as long as the [guidelines](.github/pull_request_template.md) are followed
 
+
 Table of Contents
 -----------------
 
