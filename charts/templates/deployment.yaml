@@ -14,10 +14,7 @@ spec:
         app: {{ include "name" . }}
         release: {{ .Release.Name }}
     spec:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 101
-        fsGroup: 101
+
       volumes:
       - name: {{ include "name" . }}-volume
         emptyDir: {}
@@ -29,6 +26,10 @@ spec:
           volumeMounts:
           - name: {{ include "name" . }}-volume
             mountPath: /var/www/
+          - securityContext:
+            runAsUser: 1000
+            runAsGroup: 101
+            fsGroup: 101
 
 
 
