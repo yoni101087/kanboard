@@ -20,7 +20,7 @@ spec:
         - containerPort: 80
         volumeMounts:
         - name: {{ include "name" . }}-volume
-          mountPath: /var/www/app
+          mountPath: /var
   volumeClaimTemplates:
   - metadata:
       name: {{ include "name" . }}-volume
