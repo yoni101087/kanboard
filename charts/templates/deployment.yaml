@@ -19,8 +19,6 @@ spec:
       volumes:
       - name: {{ include "name" . }}-volume
         emptyDir: {}
-        persistentVolumeClaim:
-          claimName: {{ include "name" . }}-pvc
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
