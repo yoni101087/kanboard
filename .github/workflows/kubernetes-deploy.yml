@@ -1,0 +1,67 @@
+
+#name: Kubernetes Deployment Workflow
+
+#on:
+#  push:
+#    branches:
+#      - argocd
+
+name: Manual trigger
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  deploy-app:
+    runs-on: self-hosted   # Specify the runner label for your self-hosted runner
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+          
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Build the Docker Image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/kanboard:latest .
+        
+
+      - name: Push the Docker Image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/kanboard:latest
+
+      - name: Log in to ArgoCD
+        env:
+          ARGOCD_SERVER: ${{ secrets.ARGOCD_SERVER }}
+          ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
+        run: |
+          argocd login $ARGOCD_SERVER --insecure --username admin --password $ARGOCD_TOKEN
+
+      - name: Add Repository to ArgoCD
+        env:
+          REPO_URL: git@github.com:yoni101087/kanboard.git
+        run: |
+          argocd repo add $REPO_URL \
+            --name kanboard \
+            --insecure-ignore-host-key \
+            --ssh-private-key-path ~/.ssh/id_rsa
+
+      - name: Deploy Application using ArgoCD
+        env:
+          REPO_PATH: ./charts  # Change this to your application's path
+          APP_NAMESPACE: default
+          IMAGE_TAG: latest  # You can set this to your desired tag
+        run: |
+          argocd app create kanboard \
+            --repo https://github.com/yoni101087/kanboard.git \
+            --path $REPO_PATH \
+            --dest-server https://kubernetes.default.svc \
+            --dest-namespace default \
+            --revision main  # Change this to your desired branch or revision 
+
+      - name: Trigger Synchronization
+        run: |
+          argocd app sync kanboard
+          
+
+
