@@ -29,8 +29,7 @@ spec:
           volumeMounts:
           - name: {{ include "name" . }}-volume
             mountPath: /var/www/
-          securityContext:
-            allowPrivilegeEscalation: false
+
 
 
         
