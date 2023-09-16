@@ -30,9 +30,6 @@ ADD docker/ /
 
 RUN rm -rf /var/www/app/docker && echo $VERSION > /var/www/app/app/version.txt
 
-RUN chown -R nginx:nginx /var/www/app && \
-    chown nginx:nginx /etc/nginx/ssl/kanboard.key && \
-    chown nginx:nginx .s6-svscan/lock
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD []

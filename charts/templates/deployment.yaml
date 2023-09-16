@@ -23,8 +23,9 @@ spec:
           - name: {{ include "name" . }}-volume
             mountPath: /var/www/app
       securityContext:
-        runAsUser: 100
+        fsGroup: 101
         runAsGroup: 101
+        runAsUser: 101
       volumes:
       - name: {{ include "name" . }}-volume
         persistentVolumeClaim:
