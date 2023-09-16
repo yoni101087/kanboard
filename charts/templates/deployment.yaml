@@ -24,7 +24,7 @@ spec:
             mountPath: /var/www/app
       securityContext:
         fsGroup: 0
-        runAsGroup: 0
+        runAsGroup: 101
         runAsUser: 100
       volumes:
       - name: {{ include "name" . }}-volume
