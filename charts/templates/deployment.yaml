@@ -20,10 +20,10 @@ spec:
           ports:
             - containerPort: 80
           volumeMounts:
-          - name: {{ include "name" . }}-pvc
+          - name: {{ include "name" . }}-volume
             mountPath: /
       volumes:
-      - name: {{ include "name" . }}-pvc
+      - name: {{ include "name" . }}-volume
         persistentVolumeClaim:
           claimName: {{ include "name" . }}-pvc
 
