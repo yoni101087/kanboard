@@ -9,7 +9,7 @@ image:
   # -- image repository
   repository: kanboard/kanboard
   # -- image tag
-  tag: v1.2.20
+  tag: v1.2.32
   # -- image pull policy
   pullPolicy: IfNotPresent
 
